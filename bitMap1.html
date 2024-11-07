@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bit Manipulation Encoder</title>
+</head>
+<body>
+    <h2>Bit Manipulation Encoder</h2>
+    <div>
+        <label for="inputText">Input Text:</label>
+        <input type="text" id="inputText" placeholder="Enter up to 4 characters" maxlength="4">
+        <button onclick="encodeText()">Encode</button>
+    </div>
+    <p><strong>Encoded Value (Decimal):</strong> <span id="encodedValue"></span></p>
+
+    <script>
+        async function encodeText() {
+            const inputText = document.getElementById('inputText').value;
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: inputText })
+                });
+                const data = await response.json();
+                document.getElementById('encodedValue').textContent = data.encoded_value;
+            } catch (error) {
+                console.error('Error encoding text:', error);
+            }
+        }
+    </script>
+</body>
+</html>
