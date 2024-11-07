@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encode Input</title>
+</head>
+<body>
+    <form method="POST">
+        <label for="user_input">Enter a string (up to 4 characters):</label>
+        <input type="text" id="user_input" name="user_input" maxlength="4" required>
+        <button type="submit">Encode</button>
+    </form>
+    {% if result %}
+        <p>Encoded value: {{ result }}</p>
+    {% endif %}
+</body>
+</html>
