@@ -1,0 +1,21 @@
+# Given a list of integers, find the first maximum element in it. Return its value and its index (counting with 0) as a tuple.
+
+##INTERLEAVE false
+# Please replace . . . (three dots) with your code. Don't forget the indentation and to return the value
+def get_max_index(a_list):
+    max_value = max(a_list)
+    max_index = a_list.index(max_value)
+    return (max_value, max_index)
+
+try:
+    a_list = list(map(int, input("Enter integers seperated by spaces ").split()))
+    print(*get_max_index(a_list))
+except ValueError:
+    print("Please enter valid integers.")
+
+# a_list = [int(str_numbers) for str_numbers in input().split() ] # Input list creation via list comprehension
+# print(*get_max_index(a_list))
+
+if __name__ == "__main__":
+    get_max_index(a_list)
+
