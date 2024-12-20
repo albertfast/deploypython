@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bit Manipulation Encoder/Decoder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('/static/high_quality_image_119.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        .container {
+            max-width: 50%;
+            margin-top: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            color: #e8e839;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Bit Manipulation Encoder/Decoder</h1>
+        <form method="POST" id="mainForm">
+            <div class="form-group">
+                <label for="input_text">Enter Text:</label>
+                <input type="text" id="input_text" name="input_text" class="form-control" value="{{ request.form['input_text'] if request.form.get('input_text') else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="input_decimal">Enter Encoded Values (Comma Separated):</label>
+                <textarea id="input_decimal" name="input_decimal" class="form-control">{{ request.form['input_decimal'] if request.form.get('input_decimal') else '' }}</textarea>
+            </div>
+            <div class="form-group text-center">
+                <button name="encode" type="submit" class="btn btn-primary mt-3">Encode</button>
+                <button name="scramble" type="submit" class="btn btn-info mt-3">Scramble Text</button>
+                <button name="descramble" type="submit" class="btn btn-secondary mt-3">Descramble Text</button>
+                <button name="decode" type="submit" class="btn btn-danger mt-3">Decode</button>
+                <button name="clear" type="submit" class="btn btn-warning mt-3">Clear</button>
+            </div>
+        </form>
+
+        <div class="mt-3" id="resultsContainer">
+            <h3>Results</h3>
+            <div id="resultsList">
+                {% for result in session['results'] %}
+                    <div class="alert alert-success">{{ result }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
