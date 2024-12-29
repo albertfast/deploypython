@@ -1,14 +1,10 @@
 # read a score from the keyboard 
-grade = input("What is your grade? [A, B, C, D, or F]: ").lower()
+grade = input("What is your grade? [A, B, C, D, or F]: ") 
   
 # check for passing grade 
-if grade == 'a' or grade == 'b' or grade == 'c': 
+if grade == 'A' or grade == 'a' or grade == 'B' or grade == 'b' or  grade == 'C' or grade == 'c' or grade == 'D' or grade == 'd': 
   print("Really execllent work!") 
-elif grade == 'd' or grade == 'f':
-  print("Yikes -- you failed...")
+elif grade == 'F' or grade == 'f': 
+  print("Yikes -- you failed...") 
 else:
-  print("No, that's an invalid entry")
-    
-
-
-
+  print("No, that's an invalid entry") 

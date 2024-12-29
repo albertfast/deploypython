@@ -1,60 +1,43 @@
-import matplotlib.pyplot as plt
-import numpy as np
+def text_to_binary(text):
+    return ''.join(format(ord(char), '08b') for char in text)
 
-# Example 1: Basic Lambda Function for 3x + 1
-f1 = lambda x: 3 * x + 1
-print("f1(x) = 3x + 1")
-print(f"Testing f1 with x = 2: f1(2) = 3 * 2 + 1 = {f1(2)}")  # Expected output: 7
+def binary_to_text(binary):
+    return ''.join(chr(int(binary[i:i+8], 2)) for i in range(0, len(binary), 8))
 
-# Example 2: Lambda Function with Variable Input
-x_value = 6
-print(f"\nTesting f1 with x = {x_value}: f1({x_value}) = 3 * {x_value} + 1 = {f1(x_value)}")  # Expected output: 19
+bit_map = [0, 8, 16, 24, 1, 9, 17, 25, 2, 10, 18, 26, 3, 11, 19, 27, 4, 12, 20, 28, 5, 13, 21, 29, 6, 14, 22, 30, 7, 15, 23, 31]
 
-# Example 3: Lambda within a Regular Function
-def f2(y):
-    return lambda x: (y ^ int(x)) + 7  # Ensure 'x' is cast to integer for XOR
+def apply_bit_manipulation(binary_str):
+    return ''.join(binary_str[i] if i < len(binary_str) else '0' for i in bit_map)
 
-print("\nf2(y)(x) = y ^ x + 7, where ^ is the XOR operation.")
-y_value, x_value = 2, 3
-print(f"Testing f2 with y = {y_value} and x = {x_value}: f2(2)(3) = 2 ^ 3 + 7 = {f2(y_value)(x_value)}")  # Expected output: 8
+def reverse_bit_manipulation(enc_binary):
+    decoded_binary = ['0'] * 32  # Ensure the array is filled with default '0'
+    for i, pos in enumerate(bit_map):
+        if i < len(enc_binary):
+            decoded_binary[pos] = enc_binary[i]
+    return ''.join(decoded_binary)
 
-# Explanation of the functions:
-print("\nExplanation:")
-print("1. f1(x) = 3 * x + 1: This is a linear function with a slope of 3 and y-intercept at 1.")
-print("2. f2(y)(x) = y ^ x + 7: This function uses the XOR bitwise operation between y and x, and adds 7 to the result.")
+def encode_text(input_text):
+    input_blocks = [input_text[i:i+4] for i in range(0, len(input_text), 4)]
+    encoded_values = []
+    for block in input_blocks:
+        binary_str = text_to_binary(block).ljust(32, '0')  # Padding to 32 bits
+        manipulated_binary = apply_bit_manipulation([binary_str[i:i+8] for i in range(0, len(binary_str), 8)][::-1])
+        encoded_values.append(int(manipulated_binary, 2))
+    return encoded_values
 
-# Now let's plot these functions and a few others to visualize them
-# Define a list of lambda functions and their descriptions for plotting
-lambda_functions = [
-    (lambda x: 3 * x + 1, "f1(x) = 3x + 1"),
-    (lambda x: 2 * x + 5, "f3(x) = 2x + 5"),
-    (lambda x: -x + 10, "f4(x) = -x + 10"),
-    (lambda x: x ** 2, "f5(x) = x^2"),
-    (lambda x: x ** 3, "f6(x) = x^3"),
-    (lambda x: np.sqrt(x) if x >= 0 else np.nan, "f7(x) = sqrt(x)"),  # Handle negative values in sqrt
-    (lambda x: np.abs(x), "f8(x) = |x|"),
-    (lambda x: np.sin(x), "f9(x) = sin(x)"),
-    (lambda x: int(x) ^ 1 + 7, "f10(x) = int(x) ^ 1 + 7")  # Cast to int for XOR
-]
+def decode_text(encoded_values):
+    decoded_text = ''
+    for value in encoded_values:
+        bin_str = format(value, '032b')
+        decoded_raw = reverse_bit_manipulation([bin_str[i:i+8] for i in range(0, len(bin_str), 8)][::-1])
+        decoded_text += binary_to_text(decoded_raw)
+    return decoded_text.replace('\x00', '')  # Remove padding
 
-# Plot each function on the x-y plane
-x = np.linspace(-10, 10, 400)  # Define x values from -10 to 10
+# Test input and process
+input_text = "Test"
+encoded_values = encode_text(input_text)
+decoded_text = decode_text(encoded_values)
 
-plt.figure(figsize=(14, 10))
-for func, label in lambda_functions:
-    # Handle cases where x values may go out of domain (e.g., sqrt of negative numbers)
-    try:
-        y = np.array([func(val) for val in x])  # Evaluate function element-wise
-        plt.plot(x, y, label=label)
-    except ValueError as e:
-        print(f"Skipping {label} due to domain error: {e}")
-
-# Customize plot
-plt.title("Graphs of Different Lambda Functions")
-plt.xlabel("x-axis")
-plt.ylabel("y-axis")
-plt.legend()
-plt.grid(True)
-
-# Show the plot
-plt.show()
+print("Original Text:", input_text)
+print("Encoded Values:", encoded_values)
+print("Decoded Text:", decoded_text)

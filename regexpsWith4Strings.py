@@ -1,55 +1,43 @@
 import re
 
-# Define the strings to test
+# Define the four strings to be tested.
 string1 = "A man a plan a canal panama"
 string2 = "ALPHA BRAVO CHARLIE DELTA ECHO FOXTROT"
 string3 = "alphabravocharliedeltaechofoxtrot"
 string4 = "0123456789"
 
-# Define the regular expressions
-regex_lowercase = r"[a-z]+"  # Matches one or more lowercase letters
-regex_uppercase = r"[A-Z]+"  # Matches one or more uppercase letters
-regex_digits = r"\d+"        # Matches one or more digits
+# Create the regular expressions to be used.
+# [a-z]+ matches one or more lowercase letters.
+lowercase_pattern = re.compile(r"[a-z]+")
+# [A-Z]+ matches one or more uppercase letters.
+uppercase_pattern = re.compile(r"[A-Z]+")
+# [0-9]+ matches one or more digits (0 to 9).
+digit_pattern = re.compile(r"[0-9]+")
 
-# Function to test a string against a pattern
-def test_string(string, regex, description):
-    """Checks if the string matches the given regex and returns a descriptive message."""
-    if re.search(regex, string):  # If the string matches the pattern
-        return f"matches a regular expression that indicates it has {description}."
-    else:  # If the string does not match the pattern
-        return f"does not match a regular expression that indicates it has {description}."
+# Create a list of strings and their respective names for looping through.
+strings = [
+  (string1, "string1"),
+  (string2, "string2"),
+  (string3, "string3"),
+  (string4, "string4"),
+]
 
-# Main program logic
-def main():
-    """
-    This program tests 4 predefined strings against 3 regular expressions.
-    For each string, it determines whether it matches patterns for:
-    - lowercase letters
-    - uppercase letters
-    - digits
-    """
-    # Predefined strings
-    strings = [
-        ("string1", string1),
-        ("string2", string2),
-        ("string3", string3),
-        ("string4", string4),
-    ]
+# Create a list of patterns and their respective descriptions for looping through.
+patterns = [
+    (lowercase_pattern, "lowercase letters"),
+    (uppercase_pattern, "uppercase letters"),
+    (digit_pattern, "digits"),
+]
 
-    # Regular expressions and their descriptions
-    regexes = [
-        (regex_lowercase, "lowercase letters"),
-        (regex_uppercase, "uppercase letters"),
-        (regex_digits, "digits"),
-    ]
+# Loop through each string.
+for current_string, string_name in strings:
+    # Loop through each pattern.
+    for pattern, pattern_description in patterns:
+        # Attempt to find a match.
+        match = pattern.search(current_string)
 
-    # Test each string with each regex
-    for string_name, string in strings:
-        print(f"\nTesting {string_name}: \"{string}\"")
-        for regex, description in regexes:
-            result = test_string(string, regex, description)
-            print(f"{string_name} {result}")
-
-# Run the program
-if __name__ == "__main__":
-    main()
+        # Check if a match was found and output it to the console.
+        if match:
+            print(f"{string_name} matches a regular expression that indicates it has {pattern_description}")
+        else:
+            print(f"{string_name} does not match a regular expression that indicates it has {pattern_description}")
