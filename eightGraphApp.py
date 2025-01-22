@@ -1,5 +1,7 @@
+import numpy as np
 import random
-from eightGraph import functions #Import the Function class and the functions dictionary
+#from eightGraph import functions #Import the Function class and the functions dictionary
+from scatterGraph import functions
 
 def main():
     func_list = list(functions.values()) #Get a list of Function objects.
@@ -14,7 +16,7 @@ def main():
         user_input = input("Type 'yes' to see the plot, 'next' to skip, or 'exit' to quit: ").strip().lower()
 
         if user_input == 'yes':
-            current_function.plot()
+            current_function.scatter_plot()
             index = (index + 1) % len(func_list)
         elif user_input == 'next':
             index = (index + 1) % len(func_list)

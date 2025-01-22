@@ -35,8 +35,9 @@ for numbers in range(1,number+1):
 print(factorial)
 
 
-
-
+# factorial_str = str(factorial)
+# first_digit = int(factorial_str[0])
+# print("The first digit of the factorial is:", first_digit)
 
 
 

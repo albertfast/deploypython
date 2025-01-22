@@ -1,4 +1,0 @@
-Amount borrowed: $236000
-Annual interest rate: 5.147
-Payback period in years: 38
-Monthly payment = $1179.82

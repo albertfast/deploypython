@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class Function:
     """Represents a mathematical function for plotting."""
     def __init__(self, name, function, label, description):
@@ -42,6 +43,8 @@ functions = {
     "reciprocal": Function("reciprocal", lambda x: np.where(x != 0, 1 / x, np.nan), "f(x) = 1/x", "Reciprocal"),
     "reciprocal_squared": Function("reciprocal_squared", lambda x: np.where(x != 0, 1 / x ** 2, np.nan), "f(x) = 1/x²", "Reciprocal Squared")
 }
+
+
 
 
 

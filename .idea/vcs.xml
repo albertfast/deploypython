@@ -3,6 +3,5 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Perforce" />
     <mapping directory="$PROJECT_DIR$/TreeSwift.wiki" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/bitmap1" vcs="Git" />
   </component>
 </project>
